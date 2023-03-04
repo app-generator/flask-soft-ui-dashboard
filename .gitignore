@@ -35,3 +35,7 @@ migrations
 .env__
 
 apps/home/.env
+
+./.env
+
+.env
