@@ -43,7 +43,7 @@ kiwisolver==1.4.4
 langchain==0.0.100
 llama-index==0.4.18
 lxml==4.9.2
-macholib @ == 1.15.2
+macholib == 1.15.2
 MarkupSafe==2.1.2
 marshmallow==3.19.0
 marshmallow-enum==1.5.1
