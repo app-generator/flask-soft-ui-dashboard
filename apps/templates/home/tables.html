@@ -13,6 +13,99 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
+              <h6>Vulnerabilities</h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tool Type</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tool Name</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Title</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Severity</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Local</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation Date</th>
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="analysisResultsTableBody">
+                    <!-- Dados serão preenchidos aqui -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+              <div class="col-12 d-flex justify-content-between align-items-center">
+                <button id="prevPageButton" class="btn btn-sm btn-primary">Back</button>
+                <button id="nextPageButton" class="btn btn-sm btn-primary">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const pageSize = 10; // Número de resultados por página
+            let currentPage = 1; // Página inicial
+            
+            function loadAnalysisResults(page) {
+                fetch(`/api/analysis-results-history?page=${page}&limit=${pageSize}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.getElementById('analysisResultsTableBody');
+                        tableBody.innerHTML = ''; // Limpa os dados antigos da tabela
+                        data.forEach(result => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td style="word-wrap: break-word;">${result.ToolType}</td>
+                                <td style="word-wrap: break-word;">${result.ToolName}</td>
+                                <td style="word-wrap: break-word;">${result.Title}</td>
+                                <td style="word-wrap: break-word;">${result.Severity}</td>
+                                <td style="word-wrap: break-word;">${result.Description}</td>
+                                <td style="word-wrap: break-word;">${result.Local}</td>
+                                <td style="word-wrap: break-word;">${result.Status}</td>
+                                <td style="word-wrap: break-word;">${result.CreationDate}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching analysis results:', error));
+            }
+            
+            function goToPage(page) {
+                currentPage = page;
+                loadAnalysisResults(currentPage);
+            }
+            
+            // Carrega os resultados da primeira página ao carregar a página
+            loadAnalysisResults(currentPage);
+            
+            // Exemplo de navegação entre páginas (para ilustração)
+            document.getElementById('nextPageButton').addEventListener('click', () => {
+                currentPage++;
+                loadAnalysisResults(currentPage);
+            });
+            
+            document.getElementById('prevPageButton').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadAnalysisResults(currentPage);
+                }
+            });
+        });
+
+      </script>
+
+
+
+
+
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0">
               <h6>Authors table</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">

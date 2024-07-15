@@ -4,8 +4,11 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import os, random, string
+from flask import Flask
+from flask_mongoengine import MongoEngine
 
 class Config(object):
+
 
     basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -16,6 +19,7 @@ class Config(object):
     SECRET_KEY  = os.getenv('SECRET_KEY', None)
     if not SECRET_KEY:
         SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))    
+
 
     SOCIAL_AUTH_GITHUB  = False
 
@@ -62,7 +66,11 @@ class Config(object):
     if USE_SQLITE:
 
         # This will create a file in <app> FOLDER
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')          
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')     
+
+    # MongoDB configuration
+    MONGO_URI = 'mongodb+srv://visualcode:cpNjHzz5Wn1CJ0pr@cluster01.it0lbcv.mongodb.net/doconnect_db?retryWrites=true&w=majority&ssl=true&authSource=admin'
+                  
              
 class ProductionConfig(Config):
     DEBUG = False
@@ -85,3 +93,4 @@ config_dict = {
 API_GENERATOR = {
     "books": "Book",
 }
+

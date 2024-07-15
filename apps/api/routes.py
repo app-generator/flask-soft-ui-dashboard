@@ -1,18 +1,44 @@
 import json
-
 from flask import request
 from flask_restx import Api, Resource
 from werkzeug.datastructures import MultiDict
-
-
 from apps.api import blueprint
 from apps.authentication.decorators import token_required
-
 from apps.api.forms import *
-from apps.models    import *
+from apps.models import *
+from apps.common.mongodb_fetch_data import DataFetcher
+from flask import Flask
 
 api = Api(blueprint)
+app = Flask(__name__)
 
+class AnalysisResultsHistoryResource(Resource):
+    def get(self):
+        page = int(request.args.get('page', 1))
+        limit = int(request.args.get('limit', 10))
+        
+        results = []
+
+        def process_document(db_instance, collection, document):
+            if 'AnalysisResultsHistory' in document:
+                for history_item in document['AnalysisResultsHistory']:
+                    results.append(history_item)
+
+        try:
+            DataFetcher.fetch_data(process_document)
+            
+            start_idx = (page - 1) * limit
+            end_idx = start_idx + limit
+            paginated_results = results[start_idx:end_idx]
+            
+            if paginated_results:
+                return paginated_results, 200
+            else:
+                return [], 404
+        except Exception as e:
+            return {"error": str(e)}, 500
+
+api.add_resource(AnalysisResultsHistoryResource, '/analysis-results-history')
 
 @api.route('/books/', methods=['POST', 'GET', 'DELETE', 'PUT'])
 @api.route('/books/<int:model_id>/', methods=['GET', 'DELETE', 'PUT'])
@@ -128,4 +154,3 @@ class BookRoute(Resource):
                    'message': 'record deleted!',
                    'success': True
                }, 200
-

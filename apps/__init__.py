@@ -4,21 +4,19 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import os
-
+from pymongo import MongoClient
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 
-
+# Access the database
 db = SQLAlchemy()
 login_manager = LoginManager()
-
 
 def register_extensions(app):
     db.init_app(app)
     login_manager.init_app(app)
-
 
 def register_blueprints(app):
     for module_name in ('authentication', 'home', 'api'):
@@ -27,7 +25,6 @@ def register_blueprints(app):
 
 
 def configure_database(app):
-
     @app.before_first_request
     def initialize_database():
         try:
@@ -52,6 +49,7 @@ from apps.authentication.oauth import github_blueprint
 def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
+    
     register_extensions(app)
     register_blueprints(app)
 
