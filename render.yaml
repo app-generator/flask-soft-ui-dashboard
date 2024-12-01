@@ -1,7 +1,7 @@
 services:
   - type: web
-    name: flask-soft-dashboard
-    plan: starter
+    name: flask-soft-dashboard-latest
+    plan: free
     env: python
     region: frankfurt  # region should be same as your database region.
     buildCommand: "./build.sh"
