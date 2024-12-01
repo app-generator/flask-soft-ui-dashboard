@@ -4,40 +4,63 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from apps.home import blueprint
-from flask import render_template, request
-from flask_login import login_required
+from flask import render_template, request, redirect, url_for
 from jinja2 import TemplateNotFound
+from flask_login import login_required, current_user
+from apps import db
 
 from apps.config import API_GENERATOR
 
 @blueprint.route('/index')
-@login_required
 def index():
-    return render_template('home/index.html', segment='index', API_GENERATOR=len(API_GENERATOR))
+    return render_template('pages/index.html', segment='dashboard', API_GENERATOR=len(API_GENERATOR))
 
-@blueprint.route('/<template>')
+@blueprint.route('/billing')
+def billing():
+    return render_template('pages/billing.html', segment='billing')
+
+@blueprint.route('/rtl')
+def rtl():
+    return render_template('pages/rtl.html', segment='rtl')
+
+@blueprint.route('/tables')
+def tables():
+    return render_template('pages/tables.html', segment='tables')
+
+@blueprint.route('/virtual_reality')
+def virtual_reality():
+    return render_template('pages/virtual-reality.html', segment='virtual_reality')
+
+
+@blueprint.route('/profile', methods=['GET', 'POST'])
 @login_required
-def route_template(template):
+def profile():
+    if request.method == 'POST':
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        address = request.form.get('address')
+        bio = request.form.get('bio')
 
-    try:
+        current_user.first_name = first_name
+        current_user.last_name = last_name
+        current_user.address = address
+        current_user.bio = bio
 
-        if not template.endswith('.html'):
-            template += '.html'
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
 
-        # Detect the current page
-        segment = get_segment(request)
+        return redirect(url_for('home_blueprint.profile'))
 
-        # Serve the file (if exists) from app/templates/home/FILE.html
-        return render_template("home/" + template, segment=segment, API_GENERATOR=len(API_GENERATOR))
-
-    except TemplateNotFound:
-        return render_template('home/page-404.html'), 404
-
-    except:
-        return render_template('home/page-500.html'), 500
+    return render_template('pages/profile.html', segment='profile')
 
 
 # Helper - Extract current page name from request
+@blueprint.app_template_filter('replace_value')
+def replace_value(value, args):
+  return value.replace(args, " ").title()
+
 def get_segment(request):
 
     try:
