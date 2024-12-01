@@ -10,21 +10,20 @@ class Config(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
 
     # Assets Management
-    ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
-
+    ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')  
+    
     # Set up the App SECRET_KEY
-    SECRET_KEY  = os.getenv('SECRET_KEY', None)
-    if not SECRET_KEY:
-        SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))    
+    SECRET_KEY  = os.getenv('SECRET_KEY', 'S3cret_999')
 
+    # Social AUTH context
     SOCIAL_AUTH_GITHUB  = False
 
-    GITHUB_ID      = os.getenv('GITHUB_ID')
-    GITHUB_SECRET  = os.getenv('GITHUB_SECRET')
+    GITHUB_ID      = os.getenv('GITHUB_ID'    , None)
+    GITHUB_SECRET  = os.getenv('GITHUB_SECRET', None)
 
     # Enable/Disable Github Social Login    
     if GITHUB_ID and GITHUB_SECRET:
-         SOCIAL_AUTH_GITHUB  = True
+         SOCIAL_AUTH_GITHUB  = True        
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -62,8 +61,8 @@ class Config(object):
     if USE_SQLITE:
 
         # This will create a file in <app> FOLDER
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')          
-             
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
+    
 class ProductionConfig(Config):
     DEBUG = False
 
@@ -75,13 +74,8 @@ class ProductionConfig(Config):
 class DebugConfig(Config):
     DEBUG = True
 
-
 # Load all possible configurations
 config_dict = {
     'Production': ProductionConfig,
     'Debug'     : DebugConfig
-}
-
-API_GENERATOR = {
-    "books": "Book",
 }

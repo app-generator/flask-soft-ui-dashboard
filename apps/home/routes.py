@@ -9,11 +9,10 @@ from jinja2 import TemplateNotFound
 from flask_login import login_required, current_user
 from apps import db
 
-from apps.config import API_GENERATOR
-
+@blueprint.route('/')
 @blueprint.route('/index')
 def index():
-    return render_template('pages/index.html', segment='dashboard', API_GENERATOR=len(API_GENERATOR))
+    return render_template('pages/index.html', segment='dashboard')
 
 @blueprint.route('/billing')
 def billing():
