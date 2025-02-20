@@ -24,7 +24,8 @@ github_blueprint = make_github_blueprint(
         db.session,
         user=current_user,
         user_required=False,        
-    ),   
+    ),
+   
 )
 
 @oauth_authorized.connect_via(github_blueprint)
