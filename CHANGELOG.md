@@ -1,5 +1,22 @@
 # Change Log
 
+## [1.0.18] 2025-03-14
+### Changes
+
+- Update RM Links for [App Generator](https://app-generator.dev/)
+  - [Flask Soft UI Dashboard](https://app-generator.dev/product/soft-ui-dashboard/flask/) - `Product Page`
+  - [Flask Soft UI Dashboard](https://flask-soft.onrender.com) - `LIVE Demo` 
+  - [Flask Soft UI Dashboard](https://app-generator.dev/docs/products/flask/soft-ui-dashboard/index.html) - `Complete Information` and Support Links
+- Added [Flask Generator](https://app-generator.dev/tools/flask-generator/) Link 
+  - Select the preferred design
+  - (Optional) Design Database: edit models and fields
+  - (Optional) Edit the fields for the extended user model
+  - (Optional) Enable OAuth for GitHub
+  - (Optional) Add Celery (async tasks)
+  - (Optional) Enable Dynamic Tables Module
+  - Docker Scripts
+  - Render CI/Cd Scripts
+
 ## [1.0.17] 2024-05-18
 ### Changes
 
