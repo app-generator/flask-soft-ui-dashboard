@@ -166,16 +166,16 @@
                 
                                             {% if current_user.is_authenticated %}
                                             <td class="d-none action-td" >
-                                                <a data-bs-toggle="modal" data-bs-target="#editSales-{{item.id}}" class="btn mb-1 bg-gradient-dark" href="#">
+                                                <a data-bs-toggle="modal" data-bs-target="#editSales-{{item.id}}" class="btn btn-sm px-3 mb-1 bg-gradient-dark" href="#">
                                                     <i class="fa fa-edit">edit</i>
                                                 </a>
-                                                <a data-bs-toggle="modal" data-bs-target="#deleteSales-{{item.id}}" class="btn mb-1 btn-danger" href="#">
+                                                <a data-bs-toggle="modal" data-bs-target="#deleteSales-{{item.id}}" class="btn btn-sm px-3 mb-1 btn-danger" href="#">
                                                     <i class="fa fa-trash">delete</i>
                                                 </a>
                                             </td>
                                             {% else %}
                                             <td class="d-none action-td">
-                                                <a data-bs-toggle="modal" data-bs-target="#viewSales-{{item.id}}" class="btn mb-1 bg-gradient-dark" href="#">
+                                                <a data-bs-toggle="modal" data-bs-target="#viewSales-{{item.id}}" class="btn btn-sm px-3 mb-1 bg-gradient-dark" href="#">
                                                     <i class="fa fa-eye">visibility</i>
                                                 </a>
                                             </td>
