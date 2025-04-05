@@ -4,7 +4,7 @@ Open-source **Flask Starter with Soft UI Dashboard Design**, an open-source icon
 The product is designed to deliver the best possible user experience with highly customizable feature-rich pages. 
 
 - 👉 [Flask Soft UI Dashboard](https://app-generator.dev/product/soft-ui-dashboard/flask/) - `Product Page`
-- 👉 [Flask Soft UI Dashboard](https://flask-soft.onrender.com) - `LIVE Demo` 
+- 👉 [Flask Soft UI Dashboard](https://flask-soft.onrender.com/) - `LIVE Demo` 
 - 👉 [Flask Soft UI Dashboard](https://app-generator.dev/docs/products/flask/soft-ui-dashboard/index.html) - `Complete Information` and Support Links
   - [Getting Started with Flask](https://app-generator.dev/docs/technologies/flask/index.html) - a `comprehensive tutorial`
   - `Configuration`: Install Tailwind/Flowbite, Prepare Environment, Setting up the Database 
